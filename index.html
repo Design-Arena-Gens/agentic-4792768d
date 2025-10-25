@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lion Eating Grass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #87CEEB 0%, #98D8E8 50%, #90EE90 50%, #7CCD7C 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, #7CCD7C 0%, #6B8E23 100%);
+        }
+
+        .grass-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+        }
+
+        .grass {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to top, #4B7F31, #6B8E23);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+            animation: sway 2s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .lion {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+        }
+
+        .lion-body {
+            position: absolute;
+            bottom: 40px;
+            left: 50px;
+            width: 200px;
+            height: 100px;
+            background: #D4A76A;
+            border-radius: 50px;
+        }
+
+        .lion-head {
+            position: absolute;
+            bottom: 90px;
+            left: 20px;
+            width: 120px;
+            height: 100px;
+            background: #D4A76A;
+            border-radius: 50%;
+            transform-origin: bottom center;
+            animation: headDown 3s ease-in-out infinite;
+        }
+
+        @keyframes headDown {
+            0%, 40%, 100% { transform: rotate(0deg) translateY(0); }
+            20% { transform: rotate(20deg) translateY(30px); }
+        }
+
+        .mane {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 140px;
+            height: 120px;
+            background: radial-gradient(circle, #8B6914 0%, #DAA520 40%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .mane::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(139, 105, 20, 0.6) 0%, rgba(218, 165, 32, 0.4) 40%, transparent 60%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .ear {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #D4A76A;
+            border-radius: 50% 50% 0 0;
+            top: 10px;
+        }
+
+        .ear.left {
+            left: 15px;
+            transform: rotate(-20deg);
+        }
+
+        .ear.right {
+            right: 15px;
+            transform: rotate(20deg);
+        }
+
+        .ear-inner {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #C19A6B;
+            border-radius: 50%;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .eye {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #8B4513;
+            border-radius: 50%;
+            top: 40px;
+        }
+
+        .eye.left {
+            left: 30px;
+        }
+
+        .eye.right {
+            right: 30px;
+        }
+
+        .nose {
+            position: absolute;
+            width: 20px;
+            height: 15px;
+            background: #8B4513;
+            border-radius: 50% 50% 50% 50%;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mouth {
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            border: 3px solid #8B4513;
+            border-top: none;
+            border-radius: 0 0 50% 50%;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: eating 3s ease-in-out infinite;
+        }
+
+        @keyframes eating {
+            0%, 40%, 100% { height: 20px; }
+            15%, 25% { height: 10px; }
+        }
+
+        .leg {
+            position: absolute;
+            width: 35px;
+            height: 60px;
+            background: #D4A76A;
+            border-radius: 15px;
+            bottom: 0;
+        }
+
+        .leg.front-left {
+            left: 70px;
+        }
+
+        .leg.front-right {
+            left: 120px;
+        }
+
+        .leg.back-left {
+            left: 180px;
+        }
+
+        .leg.back-right {
+            left: 230px;
+        }
+
+        .paw {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            height: 20px;
+            background: #C19A6B;
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tail {
+            position: absolute;
+            width: 100px;
+            height: 15px;
+            background: #D4A76A;
+            border-radius: 20px;
+            bottom: 80px;
+            right: 0;
+            transform-origin: left center;
+            animation: tailWag 2s ease-in-out infinite;
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .tail-tuft {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #8B6914;
+            border-radius: 50%;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .grass-bite {
+            position: absolute;
+            width: 20px;
+            height: 40px;
+            bottom: 120px;
+            left: 100px;
+            opacity: 0;
+            animation: grassBite 3s ease-in-out infinite;
+        }
+
+        @keyframes grassBite {
+            0%, 40%, 100% { opacity: 0; transform: translateY(0); }
+            15% { opacity: 1; transform: translateY(-20px); }
+            25% { opacity: 0; transform: translateY(-30px); }
+        }
+
+        .grass-blade-bite {
+            position: absolute;
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(to top, #4B7F31, #6B8E23);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .grass-blade-bite:nth-child(1) { left: 0; }
+        .grass-blade-bite:nth-child(2) { left: 8px; }
+        .grass-blade-bite:nth-child(3) { left: 16px; }
+
+        .sun {
+            position: absolute;
+            top: 50px;
+            right: 100px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            opacity: 0.8;
+        }
+
+        .cloud1 {
+            top: 80px;
+            left: 100px;
+            width: 100px;
+            height: 40px;
+            animation: float 20s linear infinite;
+        }
+
+        .cloud2 {
+            top: 150px;
+            right: 150px;
+            width: 120px;
+            height: 50px;
+            animation: float 25s linear infinite reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+
+        .cloud::before {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            top: -20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            top: -15px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <div class="sun"></div>
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+
+        <div class="ground"></div>
+
+        <div class="grass-container" id="grassContainer"></div>
+
+        <div class="lion">
+            <div class="lion-head">
+                <div class="mane"></div>
+                <div class="ear left">
+                    <div class="ear-inner"></div>
+                </div>
+                <div class="ear right">
+                    <div class="ear-inner"></div>
+                </div>
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="nose"></div>
+                <div class="mouth"></div>
+            </div>
+
+            <div class="lion-body"></div>
+
+            <div class="leg front-left">
+                <div class="paw"></div>
+            </div>
+            <div class="leg front-right">
+                <div class="paw"></div>
+            </div>
+            <div class="leg back-left">
+                <div class="paw"></div>
+            </div>
+            <div class="leg back-right">
+                <div class="paw"></div>
+            </div>
+
+            <div class="tail">
+                <div class="tail-tuft"></div>
+            </div>
+
+            <div class="grass-bite">
+                <div class="grass-blade-bite"></div>
+                <div class="grass-blade-bite"></div>
+                <div class="grass-blade-bite"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate random grass blades
+        const grassContainer = document.getElementById('grassContainer');
+        const grassCount = 150;
+
+        for (let i = 0; i < grassCount; i++) {
+            const grass = document.createElement('div');
+            grass.className = 'grass';
+            grass.style.left = Math.random() * 100 + '%';
+            grass.style.height = (Math.random() * 60 + 40) + 'px';
+            grass.style.animationDelay = Math.random() * 2 + 's';
+            grass.style.animationDuration = (Math.random() * 1 + 1.5) + 's';
+            grassContainer.appendChild(grass);
+        }
+    </script>
+</body>
+</html>
